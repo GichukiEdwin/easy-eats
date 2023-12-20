@@ -3,7 +3,7 @@ import { Right } from "../icons/Right";
 
 export const Hero = () => {
   return (
-    <section className="hero">
+    <section className="hero mt-4">
       <div className="py-12">
         <h1 className="text-4xl font-semibold">
           At Easy Eats, we believe that life is simply better with{" "}
