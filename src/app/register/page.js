@@ -18,7 +18,7 @@ const RegisterPage = () => {
     const response = await fetch("/api/register", {
       method: "POST",
       body: JSON.stringify({ email, password }),
-      headers: { "content-Type": "application/json" },
+      headers: { "Content-Type": "application/json" },
     });
 
     if (response.ok) {
@@ -44,7 +44,7 @@ const RegisterPage = () => {
 
       {error && (
         <div className="my-4 text-center">
-          An error occured <br />
+          An error occurred <br />
           Please try again later.
         </div>
       )}

@@ -1,26 +1,23 @@
 "use client";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function LoginPage() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginInProgress, setLoginInProgress] = useState(false);
 
-  const handleFormSubmit = async (e) => {
+  async function handleFormSubmit(e) {
     e.preventDefault();
     setLoginInProgress(true);
 
-    const res = await signIn("credentials", {
-      email,
-      password,
-      callbackUrl: "/",
-      redirect: false,
-    });
+    await signIn("Credentials", { email, password });
 
     setLoginInProgress(false);
-  };
+  }
 
   return (
     <section className="mt-8">
