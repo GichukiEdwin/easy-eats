@@ -1,4 +1,5 @@
 "use client";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -70,10 +71,39 @@ const RegisterPage = () => {
         <div className="my-2 text-center text-gray-500">
           or login with provider
         </div>
-        <button className="flex gap-4 justify-center">
+        <button
+          onClick={() => signIn("google", { callbackUrl: "/" })}
+          className="flex gap-4 justify-center"
+        >
           <Image src={"/google.png"} width={"24"} height={"24"} alt={""} />
           Login with google
         </button>
+        <button
+          onClick={() => signIn("facebook", { callbackUrl: "/" })}
+          className="flex gap-4 justify-center mt-2"
+        >
+          <Image
+            src={"/face_book.png"}
+            width={"20"}
+            height={"20"}
+            alt={"facebook icon"}
+          />
+          Login with facebook
+        </button>
+
+        <button
+          onClick={() => signIn("github", { callbackUrl: "/" })}
+          className="flex gap-4 justify-center mt-2"
+        >
+          <Image
+            src={"/github.png"}
+            width={"24"}
+            height={"24"}
+            alt={"github icon"}
+          />
+          Login with github
+        </button>
+
         <div className="text-gray-500 text-center my-2 border-t">
           Existing account?{" "}
           <Link className="underline" href={"/login"}>

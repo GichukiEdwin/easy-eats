@@ -1,7 +1,7 @@
 import { Header } from "@/components/layout/Header";
 
 import { Roboto } from "next/font/google";
-// import { Provider } from "./../context/Provider";
+import { Provider } from "./../context/Provider";
 
 import "./globals.css";
 
@@ -20,13 +20,13 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={roboto.className}>
         <main className="max-w-4xl mx-auto p-4">
-          {/* <Provider> */}
-          <Header />
-          {children}
-          <footer className="border-t text-center text-gray-500 p-8 mt-16">
-            &copy; {new Date().getFullYear()} Gichuki All rights reserved
-          </footer>
-          {/* </Provider> */}
+          <Provider>
+            <Header />
+            {children}
+            <footer className="border-t text-center text-gray-500 p-8 mt-16">
+              &copy; {new Date().getFullYear()} Gichuki All rights reserved
+            </footer>
+          </Provider>
         </main>
       </body>
     </html>

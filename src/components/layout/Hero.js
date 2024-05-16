@@ -16,11 +16,11 @@ export const Hero = () => {
           Every moment is seasoned with the magic of pizza.
         </p>
         <div className="flex gap-4 items-center text-sm">
-          <button className="bg-primary text-white rounded-full px-4 py-2 flex gap-2 uppercase items-center">
+          <button className="flex justify-center bg-primary text-white rounded-full px-4 py-2 flex gap-2 uppercase items-center">
             Order now
             <Right />
           </button>
-          <button className="flex gap-2 font-semibold text-gray-600">
+          <button className="flex border-0 items-center gap-2 font-semibold text-gray-600">
             Learn more
             <Right />
           </button>
