@@ -19,8 +19,8 @@ export default function AdminTabs({ admin }) {
             Categories
           </Link>
           <Link
-            className={path === "/menu-items" ? "active" : ""}
-            href={"/menu-items"}
+            className={path === "/menu_items" ? "active" : ""}
+            href={"/menu_items"}
           >
             Menu items
           </Link>
