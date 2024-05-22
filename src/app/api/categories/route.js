@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { Category } from "../models/Category";
 
 export async function POST(req) {
