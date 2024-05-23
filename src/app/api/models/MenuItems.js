@@ -10,4 +10,4 @@ const MenuItemSchema = new Schema(
   { timestamps: true }
 );
 
-export const MenuItem = models?.Menutem || model("MenuItem", MenuItemSchema);
+export const MenuItem = models?.MenuItem || model("MenuItem", MenuItemSchema);
