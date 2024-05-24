@@ -1,24 +1,19 @@
 "use client";
 import { Left } from "@/components/icons/Left";
+import MenuItemForm from "@/components/layout/MenuItemForm";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useProfile } from "../../../components/UseProfile";
-import ImageUpload from "../../../components/layout/ImageUpload";
 import AdminTabs from "./../../../components/layout/AdminTabs";
 
 export default function NewMenuItemPage() {
-  const [image, setImage] = useState("");
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [basePrice, setBasePrice] = useState("");
   const [redirectToItems, setRedirectToItems] = useState(false);
   const { admin, loading } = useProfile();
-
-  const handleFormSubmit = async (e) => {
+  const handleFormSubmit = async (e, data) => {
     e.preventDefault();
-    const data = { image, name, description, basePrice };
+
     const savePromise = new Promise(async (resolve, reject) => {
       const response = await fetch("/api/menu_items", {
         method: "POST",
@@ -62,37 +57,7 @@ export default function NewMenuItemPage() {
         </Link>
       </div>
 
-      <form onSubmit={handleFormSubmit} className="mt-8 max-w-md mx-auto">
-        <div
-          className="grid gap-4 items-start"
-          style={{ gridTemplateColumns: ".3fr .7fr" }}
-        >
-          <div className="">
-            <ImageUpload link={image} setLink={setImage} />
-          </div>
-          <div className="grow">
-            <label>Item name</label>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <label>Description</label>
-            <input
-              type="text"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-            <label>Base price</label>
-            <input
-              type="text"
-              value={basePrice}
-              onChange={(e) => setBasePrice(e.target.value)}
-            />
-            <button type="submit">Save</button>
-          </div>
-        </div>
-      </form>
+      <MenuItemForm onSubmit={handleFormSubmit} menuItem={null} />
     </section>
   );
 }

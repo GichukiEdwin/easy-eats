@@ -17,7 +17,9 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@react-oauth/google": "^0.12.1",
-    "axios": "^1.6.2",
+    "@tanstack/react-query": "^5.37.1",
+    "@tanstack/react-query-devtools": "^5.37.1",
+    "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
     "mongodb": "^6.5.0",
     "mongoose": "^8.0.1",
@@ -27,6 +29,7 @@
     "react-dom": "^18",
     "react-github-btn": "^1.4.0",
     "react-hot-toast": "^2.4.1",
+    "react-query": "^3.39.3",
     "uniqid": "^5.4.0"
   },
   "devDependencies": {
