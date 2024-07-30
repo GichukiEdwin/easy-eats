@@ -1,4 +1,5 @@
 "use client";
+import DeleteButton from "@/components/DeleteButton";
 import AdminTabs from "@/components/layout/AdminTabs";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -54,9 +55,26 @@ export default function CategoriesPage() {
     });
   };
 
-  const handleDeleteClick = (_id) => {
-    console.log(_id);
-  };
+  async function handleDeleteClick(_id) {
+    const promise = new Promise(async (resolve, reject) => {
+      const response = await fetch("/api/categories?_id=" + _id, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        resolve();
+      } else {
+        reject();
+      }
+    });
+
+    await toast.promise(promise, {
+      loading: "Deleting...",
+      success: "Deleted",
+      error: "Error",
+    });
+
+    fetchCategories();
+  }
 
   if (loading) {
     return "Loading info...";
@@ -86,9 +104,18 @@ export default function CategoriesPage() {
               type="text"
             />
           </div>
-          <div className="pb-2">
+          <div className="pb-2 flex gap-2">
             <button className="border border-primary" type="submit">
               {editCategory ? "Update" : "Create"}
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setEditCategory(null);
+                setCategoryName("");
+              }}
+            >
+              Cancel
             </button>
           </div>
         </div>
@@ -99,7 +126,7 @@ export default function CategoriesPage() {
           categories.map((cat) => (
             <div
               key=""
-              className="bg-gray-100 rounded-xl p-2 px-4 flex gap-2 mb-1"
+              className="bg-gray-100 items-center rounded-xl p-2 px-4 flex gap-2 mb-1"
             >
               <div className="grow">{cat.name}</div>
               <div className="flex gap-1">
@@ -112,9 +139,16 @@ export default function CategoriesPage() {
                 >
                   Edit
                 </button>
-                <button onClick={() => handleDeleteClick()} type="button">
+                <DeleteButton
+                  label="Delete"
+                  onDelete={() => handleDeleteClick(cat._id)}
+                />
+                {/* <button
+                  onClick={() => handleDeleteClick(cat._id)}
+                  type="button"
+                >
                   Delete
-                </button>
+                </button> */}
               </div>
             </div>
           ))}
