@@ -5,7 +5,7 @@ export default function DeleteButton({ label, onDelete }) {
 
   if (confirmPopUp) {
     return (
-      <div className="fixed bg-black/50 inset-0 flex items-center h-full justify-center">
+      <div className="fixed bg-black/90 inset-0 flex items-center h-full justify-center">
         <div className="bg-white p-4 rounded-lg">
           <div>Are you sure you want to delete?</div>
           <div className="flex gap-2 mt-1">
@@ -13,7 +13,7 @@ export default function DeleteButton({ label, onDelete }) {
               Cancel
             </button>
             <button onClick={onDelete} type="button" className="primary">
-              Yes, delete!
+              Yes,&nbsp;delete!
             </button>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import ImageUpload from "./../../components/layout/ImageUpload";
 import {
@@ -15,6 +15,18 @@ export default function MenuItemForm({ onSubmit, menuItem }) {
   const [extraIngredientsPrices, setExtraIngredientsPrices] = useState(
     menuItem?.extraIngredientsPrices || []
   );
+  const [categories, setCategories] = useState([]);
+  const [selectCategory, setSelectCategory] = useState(
+    menuItem?.category || ""
+  );
+
+  useEffect(() => {
+    fetch("/api/categories").then((res) => {
+      res.json().then((categories) => {
+        setCategories(categories);
+      });
+    });
+  }, []);
 
   return (
     <form
@@ -26,6 +38,7 @@ export default function MenuItemForm({ onSubmit, menuItem }) {
           basePrice,
           sizes,
           extraIngredientsPrices,
+          selectCategory,
         })
       }
       className="mt-8 max-w-md mx-auto"
@@ -50,6 +63,20 @@ export default function MenuItemForm({ onSubmit, menuItem }) {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
+
+          <label>Category</label>
+          <select
+            value={selectCategory}
+            onClick={(e) => setSelectCategory(e.target.value)}
+          >
+            {categories?.length > 0 &&
+              categories.map((cat) => (
+                <option key="" value={cat._id}>
+                  {cat.name}
+                </option>
+              ))}
+          </select>
+
           <label>Base price</label>
           <input
             type="text"
