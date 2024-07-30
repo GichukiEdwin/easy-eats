@@ -41,6 +41,7 @@ export default function MenuItemPriceprops({
         {propOpen && <ChevronUp />}
         {!propOpen && <ChevronDown />}
         <span>{name}</span>
+        <span>({props.length})</span>
       </button>
 
       <div className={propOpen ? "block" : "hidden"}>

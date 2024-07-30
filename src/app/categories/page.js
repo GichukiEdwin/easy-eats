@@ -54,6 +54,10 @@ export default function CategoriesPage() {
     });
   };
 
+  const handleDeleteClick = (_id) => {
+    console.log(_id);
+  };
+
   if (loading) {
     return "Loading info...";
   }
@@ -90,19 +94,29 @@ export default function CategoriesPage() {
         </div>
       </form>
       <div className="">
-        <h2 className="mt-8 text-sm text-gray-500">Edit category</h2>
+        <h2 className="mt-8 text-sm text-gray-500">Existing categories</h2>
         {categories?.length > 0 &&
           categories.map((cat) => (
-            <button
-              onClick={() => {
-                setEditCategory(cat);
-                setCategoryName(cat.name);
-              }}
+            <div
               key=""
-              className="rounded-xl p-2 px-4 flex gap-2 cursor-pointer mb-1"
+              className="bg-gray-100 rounded-xl p-2 px-4 flex gap-2 mb-1"
             >
-              <span className="">{cat.name}</span>
-            </button>
+              <div className="grow">{cat.name}</div>
+              <div className="flex gap-1">
+                <button
+                  onClick={() => {
+                    setEditCategory(cat);
+                    setCategoryName(cat.name);
+                  }}
+                  type="button"
+                >
+                  Edit
+                </button>
+                <button onClick={() => handleDeleteClick()} type="button">
+                  Delete
+                </button>
+              </div>
+            </div>
           ))}
       </div>
     </section>
