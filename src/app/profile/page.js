@@ -3,10 +3,12 @@ import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useProfile } from "../../components/UseProfile";
 import AdminTabs from "./../../components/layout/AdminTabs";
 import ImageUpload from "./../../components/layout/ImageUpload";
 
 export default function ProfilePage() {
+  const { loading, admin } = useProfile();
   const session = useSession();
   const [userName, setUserName] = useState("");
   const [image, setImage] = useState("");
@@ -15,7 +17,7 @@ export default function ProfilePage() {
   const [postalCode, setPostalCode] = useState("");
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
-  const [admin, setAdmin] = useState(false);
+  // const [admin, setAdmin] = useState(false);
   const [profileFetched, setProfileFetched] = useState(false);
 
   const { status } = session;
@@ -32,7 +34,7 @@ export default function ProfilePage() {
           setPostalCode(data.postalCode);
           setCity(data.city);
           setCountry(data.country);
-          setAdmin(data.admin);
+          // setAdmin(data.admin);
           setProfileFetched(true);
         });
       });
