@@ -1,5 +1,6 @@
 "use client";
 import { useProfile } from "@/components/UseProfile";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import AdminTabs from "../../components/layout/AdminTabs";
 
@@ -32,17 +33,19 @@ function UsersPage() {
             >
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 grow">
                 {" "}
-                <div className="text-gray-500">
+                <div className="text-gray-700">
                   {user.name ? (
                     <span className="">{user.name}</span>
                   ) : (
                     <span className="italic">No name</span>
                   )}
                 </div>
-                <span className="text-gray-300">{user.email}</span>
+                <span className="text-gray-500">{user.email}</span>
               </div>
               <div>
-                <button>Edit</button>
+                <Link className="button" href={"/users/" + user._id}>
+                  Edit
+                </Link>
               </div>
             </div>
           ))}
