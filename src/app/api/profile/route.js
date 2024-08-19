@@ -7,18 +7,34 @@ import { authOptions } from "./../../api/auth/[...nextauth]/route";
 export async function PUT(req) {
   await mongoose.connect(process.env.MONGO_URL);
   const data = await req.json();
-  const { name, image, ...extraInfo } = data;
+  const { name, image, ...extraInfo } = data.data;
   const session = await getServerSession(authOptions);
 
   const email = session.user.email;
 
   // update user name
 
-  await User.updateOne({ email }, { name, image });
+  console.log("Received data:", data);
+  console.log("Session email:", email);
+  console.log("Extra info:", extraInfo);
 
-  await UserInfo.findOneAndUpdate({ email }, extraInfo, { upsert: true });
+  // Update user name and image
+  const userUpdateResult = await User.updateOne({ email }, { name, image });
+  console.log("User Update Result:", userUpdateResult);
 
-  return Response.json(true);
+  // Update additional user info
+  const userInfoUpdateResult = await UserInfo.findOneAndUpdate(
+    { email },
+    { ...extraInfo }, // Make sure extraInfo is passed correctly
+    {
+      upsert: true,
+      new: true,
+    } // upsert to create if not found, new to return the updated doc
+  );
+  console.log("UserInfo Update Result:", userInfoUpdateResult);
+
+  return new Response(JSON.stringify(userInfoUpdateResult), { status: 200 });
+  // return Response.json(true);
 }
 
 export async function GET() {
