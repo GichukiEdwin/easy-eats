@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useProfile } from "./../../components/UseProfile";
 import ImageUpload from "./../../components/layout/ImageUpload";
 
 export default function UserForm({ user, onSave }) {
@@ -10,6 +11,9 @@ export default function UserForm({ user, onSave }) {
   const [postalCode, setPostalCode] = useState(user?.postalCode || "");
   const [city, setCity] = useState(user?.city || "");
   const [country, setCountry] = useState(user?.country || "");
+  const [admin, setAdmin] = useState(user?.admin || false);
+  const { data: loggedInUserData } = useProfile();
+  console.log("Logged-in user data:", loggedInUserData);
 
   return (
     <div className="flex gap-4 items-start">
@@ -23,6 +27,7 @@ export default function UserForm({ user, onSave }) {
         onSubmit={(e) =>
           onSave(e, {
             name: userName,
+            admin,
             image,
             phone,
             streetAddress,
@@ -60,8 +65,8 @@ export default function UserForm({ user, onSave }) {
           type="text"
           placeholder="Country"
         />
-        <div className="flex gap-2">
-          <div>
+        <div className="grid grid-cols-2 gap-2">
+          <div className="">
             <label>City</label>
             <input
               value={city}
@@ -88,6 +93,25 @@ export default function UserForm({ user, onSave }) {
           type="text"
           placeholder="Street address"
         />
+
+        {loggedInUserData?.admin && (
+          <div>
+            {JSON.stringify(admin)}
+            <label
+              className="inline-flex items-center gap-2 p-2 mb-2"
+              htmlFor="adminCB"
+            >
+              <input
+                id="adminCB"
+                type="checkbox"
+                value={"1"}
+                checked={admin}
+                onChange={(e) => setAdmin(e.target.checked)}
+              />
+              <span>Admin</span>
+            </label>
+          </div>
+        )}
 
         <button type="submit">Save</button>
       </form>
