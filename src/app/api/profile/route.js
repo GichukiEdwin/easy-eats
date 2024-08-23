@@ -7,15 +7,22 @@ import { authOptions } from "./../../api/auth/[...nextauth]/route";
 export async function PUT(req) {
   await mongoose.connect(process.env.MONGO_URL);
   const data = await req.json();
+<<<<<<< HEAD
   const { _id, name, image, ...extraInfo } = data;
 
   let filter = {};
   let email;
+=======
+  const { _id, name, image, ...extraInfo } = data.data;
+
+  let filter = {};
+>>>>>>> 249f3991cb3a7b01293d49b8920c1b7bdc1b211b
 
   if (_id) {
     filter = { _id };
   } else {
     const session = await getServerSession(authOptions);
+<<<<<<< HEAD
     console.log("Session data:", session);
     if (!session) {
       console.error("Session not found");
@@ -35,6 +42,10 @@ export async function PUT(req) {
         }
       );
     }
+=======
+
+    const email = session.user.email;
+>>>>>>> 249f3991cb3a7b01293d49b8920c1b7bdc1b211b
     filter = { email };
   }
 
@@ -46,21 +57,35 @@ export async function PUT(req) {
   console.log("Filter applied:", filter);
 
   // Update user name and image
+<<<<<<< HEAD
   const user = await User.findOne(filter);
   const userUpdateResult = await User.updateOne(filter, { name, image });
   console.log("User Update Result:", userUpdateResult);
+=======
+  const userUpdateResult = await User.updateOne(
+    filter,
+    { email },
+    { name, image }
+  );
+  //? console.log("User Update Result:", userUpdateResult);
+>>>>>>> 249f3991cb3a7b01293d49b8920c1b7bdc1b211b
 
   // Update additional user info
 
   const userInfoUpdateResult = await UserInfo.findOneAndUpdate(
+<<<<<<< HEAD
     { email: user.email },
+=======
+    filter,
+    { email },
+>>>>>>> 249f3991cb3a7b01293d49b8920c1b7bdc1b211b
     { ...extraInfo }, // Make sure extraInfo is passed correctly
     {
       upsert: true,
       new: true,
     } // upsert to create if not found, new to return the updated doc
   );
-  console.log("UserInfo Update Result:", userInfoUpdateResult);
+  //? console.log("UserInfo Update Result:", userInfoUpdateResult);
 
   return new Response(JSON.stringify(userInfoUpdateResult), { status: 200 });
   // return Response.json(true);
