@@ -20,12 +20,33 @@ export default function EditUserPage() {
 
   const handleSubmitButtonClick = async (e, data) => {
     e.preventDefault();
-    fetch("/api/profile", {
+
+    await fetch("/api/profile", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...data, _id: id }),
     });
   };
+
+  // const handleSubmitButtonClick = async (e, data) => {
+  //   e.preventDefault();
+
+  //   const promise = new Promise(async (resolve, reject) => {
+  //     const response = await fetch("/api/profile", {
+  //       method: "PUT",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({ ...data, _id: id }),
+  //     });
+  //     if (response.ok) resolve();
+  //     else reject();
+  //   });
+
+  //   await toast.promise(promise, {
+  //     loading: "Saving...",
+  //     success: "Profile saved!",
+  //     error: "Error",
+  //   });
+  // };
 
   if (loading) {
     return "Loading user profile...";

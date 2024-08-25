@@ -1,8 +1,22 @@
+"use client";
 import Image from "next/image";
+import { useMenuItems } from "../../hooks/useMenuItems";
 import { MenuItem } from "../menu/MenuItem";
 import { SectionHeaders } from "./SectionHeaders";
 
 export const HomeMenu = () => {
+  const { data: menuItems, isLoading, isError } = useMenuItems();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error loading menu items</div>;
+  }
+
+  const bestSellers = menuItems.slice(-3);
+
   return (
     <section>
       <div className="absolute w-full left-0 right-0 justify-start">
@@ -24,18 +38,16 @@ export const HomeMenu = () => {
         </div>
       </div>
       <div className="text-center mb-4">
-        <SectionHeaders subHeader={"Check out"} mainHeader={"Menu"} />
+        <SectionHeaders
+          subHeader={"Check out"}
+          mainHeader={"Our best sellers"}
+        />
       </div>
       <div className="grid grid-cols-3 gap-4">
-        <MenuItem />
-        <MenuItem />
-        <MenuItem />
-        <MenuItem />
-        <MenuItem />
-        <MenuItem />
-        <MenuItem />
-        <MenuItem />
+        {bestSellers?.length > 0 &&
+          bestSellers.map((item) => <MenuItem {...item} key={item.id} />)}
       </div>
     </section>
   );
 };
+//<MenuItem />
