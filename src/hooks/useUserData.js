@@ -8,5 +8,5 @@ const fetchUserData = async () => {
   return response.json();
 };
 export const useUserData = () => {
-  return useQuery({ queryKey: "user", queryFn: fetchUserData });
+  return useQuery({ queryKey: ["user"], queryFn: fetchUserData });
 };

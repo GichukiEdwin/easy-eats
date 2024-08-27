@@ -1,6 +1,8 @@
 "use client";
+import { CartContext } from "@/context/Provider";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import { useContext } from "react";
 
 export const Header = () => {
   const session = useSession();
@@ -8,6 +10,7 @@ export const Header = () => {
   const status = session?.status;
   const userData = session.data?.user;
   let userName = userData?.name || userData?.email;
+  const { cartProducts } = useContext(CartContext);
   if (userName && userName.includes(" ")) {
     userName = userName.split(" ")[0];
   }
@@ -53,6 +56,8 @@ export const Header = () => {
             </Link>
           </>
         )}
+
+        <Link href={"/cart"}>Cart ({cartProducts.length})</Link>
       </nav>
     </header>
   );

@@ -33,7 +33,7 @@ export default function MenuPage() {
               <SectionHeaders mainHeader={category.name} />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 mb-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 mb-12">
               {menuItems
                 .filter((item) => item.category === category.id)
                 .map((item) => (
