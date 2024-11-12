@@ -10,4 +10,3 @@ const fetchMenuItems = async () => {
 export const useMenuItems = () => {
   return useQuery({ queryKey: ["menu_items"], queryFn: fetchMenuItems });
 };
-useQuery;
