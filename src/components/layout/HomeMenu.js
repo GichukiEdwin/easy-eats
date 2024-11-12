@@ -1,8 +1,9 @@
 "use client";
+
 import Image from "next/image";
 import { useMenuItems } from "../../hooks/useMenuItems";
-import { MenuItem } from "../menu/MenuItem";
 import { SectionHeaders } from "./SectionHeaders";
+import { MenuItem } from "../menu/MenuItem";
 
 export const HomeMenu = () => {
   const { data: menuItems, isLoading, isError } = useMenuItems();
