@@ -74,7 +74,7 @@ export const MenuItem = (menuItem) => {
               {sizes?.length > 0 && (
                 <div className="p-4 bg-gray-100 rounded-lg mb-4">
                   <h4 className="font-semibold my-2 text-xl text-center">
-                    Pick a size
+                    Pick a Meal Portion
                   </h4>
                   {sizes.map((size) => (
                     <label
@@ -96,7 +96,7 @@ export const MenuItem = (menuItem) => {
               {extraIngredientsPrices?.length > 0 && (
                 <div className="p-4 bg-gray-100 rounded-lg mb-4">
                   <h4 className="font-semibold my-2 text-xl text-center">
-                    Pick an ingredient
+                    Pick Optional Enhancements
                   </h4>
                   {extraIngredientsPrices.map((extraIngredient) => (
                     <label
