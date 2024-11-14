@@ -18,11 +18,11 @@ export default function CartPage() {
 
   useEffect(() => {
     if (profileData?.city) {
-      const { phone, city, streetAddress, postalCode, country } = profileData;
+      const { phone, streetAddress, city, postalCode, country } = profileData;
       const profileAddress = {
         phone,
-        city,
         streetAddress,
+        city,
         postalCode,
         country,
       };
