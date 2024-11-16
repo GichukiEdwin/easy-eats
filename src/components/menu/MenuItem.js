@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useContext, useState } from "react";
+import FlyingButton from "react-flying-item";
 import toast from "react-hot-toast";
 import { CartContext } from "../../context/Provider";
 import MenuItemTile from "./MenuItemTile";
@@ -13,7 +14,7 @@ export const MenuItem = (menuItem) => {
   const [selectedExtraIngredient, setSelectedExtraIngredient] = useState([]);
   const [showPopUp, setShowPopUp] = useState(false);
   const { addToCart } = useContext(CartContext);
-  function handleAddToCartButtonClick() {
+  async function handleAddToCartButtonClick() {
     const hasOptions = sizes.length > 0 && extraIngredientsPrices.length > 0;
 
     if (hasOptions && !showPopUp) {
@@ -22,6 +23,7 @@ export const MenuItem = (menuItem) => {
     }
     addToCart(menuItem, selectedSize, selectedExtraIngredient);
     toast.success("Added to cart!");
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     setShowPopUp(false);
   }
 
@@ -115,13 +117,16 @@ export const MenuItem = (menuItem) => {
                   ))}
                 </div>
               )}
-              <button
-                onClick={handleAddToCartButtonClick}
-                className="primary sticky bottom-2"
-                type="button"
-              >
-                Add to cart KSH {selectedPrice}
-              </button>
+              <FlyingButton targetTop={"5%"} targetLeft={"95%"} src={image}>
+                <div
+                  onClick={handleAddToCartButtonClick}
+                  className="primary sticky bottom-2"
+                  type="button"
+                >
+                  Add to cart KSH {selectedPrice}
+                </div>
+              </FlyingButton>
+
               <button
                 className="mt-2 text-center justify-center"
                 onClick={() => setShowPopUp(false)}

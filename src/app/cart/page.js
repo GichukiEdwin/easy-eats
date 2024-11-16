@@ -1,11 +1,12 @@
 "use client";
 import AddressInputs from "@/components/layout/AddressInputs";
-import { useProfile } from "@/components/UseProfile";
 import { CartContext, cartProductPrice } from "@/context/Provider";
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 import { Trash } from "./../../components/icons/Trash";
 import { SectionHeaders } from "./../../components/layout/SectionHeaders";
+// import { useProfile } from "./../../components/UseProfile";
+import { useUserData } from "./../../hooks/useUserData";
 
 export default function CartPage() {
   const { cartProducts, removeFromCart } = useContext(CartContext);
@@ -14,40 +15,38 @@ export default function CartPage() {
     total += cartProductPrice(p);
   }
   const [address, setAddress] = useState({});
-  const { data: profileData } = useProfile();
-
+  // const { data: profileData } = useProfile();
+  const { data } = useUserData();
   useEffect(() => {
-    if (profileData?.city) {
-      const { phone, streetAddress, city, postalCode, country } = profileData;
+    if (data?.city) {
+      const { phone, country, city, postalCode, streetAddress } = data;
       const profileAddress = {
         phone,
-        streetAddress,
+        country,
         city,
         postalCode,
-        country,
+        streetAddress,
       };
       setAddress(profileAddress);
     }
-  }, [profileData]);
+  }, [data]);
 
   function handleAddressUpdate(propName, value) {
-    setAddress((prevAddress) => {
-      ({ ...prevAddress, [propName]: value });
-    });
+    setAddress((prevAddress) => ({ ...prevAddress, [propName]: value }));
   }
   return (
     <section className="mt-8">
       <div className="text-center">
         <SectionHeaders mainHeader="Cart" />
       </div>
-      <div className="grid grid-cols-2 gap-4 mt-4">
+      <div className="grid grid-cols-2 gap-12 mt-4">
         <div>
           {cartProducts?.length === 0 && (
             <div>No products in your shopping cart</div>
           )}
           {cartProducts?.length > 0 &&
             cartProducts.map((product, index) => (
-              <div className="flex items-center gap-4 mb-2 border-b py-2">
+              <div className="flex items-center gap-4 border-b py-4" key="">
                 <div className="w-24">
                   <Image
                     src={product.image}
@@ -68,7 +67,7 @@ export default function CartPage() {
                     <div className="text-sm text-gray-800">
                       Meal Add-Ons :{" "}
                       {product.extras.map((extra) => (
-                        <div className="text-gray-500">
+                        <div key="" className="text-gray-500">
                           {extra.name} Ksh {extra.price}
                         </div>
                       ))}
@@ -94,7 +93,7 @@ export default function CartPage() {
             <span className="pl-1 text-lg font-semibold">Ksh{total}</span>
           </div>
         </div>
-        <div className="bg-gray-400 p-4 rounded-lg">
+        <div className="bg-gray-200 p-4 rounded-lg">
           <h2>Checkout</h2>
           <form>
             <AddressInputs
