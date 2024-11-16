@@ -14,7 +14,7 @@ export default function UserForm({ user, onSave }) {
   const [country, setCountry] = useState(user?.country || "");
   const [admin, setAdmin] = useState(user?.admin || false);
   const { data: loggedInUserData } = useProfile();
-  console.log("Logged-in user data:", loggedInUserData);
+  // console.log("Logged-in user data:", loggedInUserData);
 
   function handleAddressUpdate(propName, value) {
     if (propName === "phone") setPhone(value);

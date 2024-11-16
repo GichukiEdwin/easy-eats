@@ -14,7 +14,7 @@ export function useProfile() {
         }
         const data = await response.json();
         // Log data for debugging
-        console.log("Profile data:", data);
+        // console.log("Profile data:", data);
         setAdmin(data.admin || false); // Ensure admin is set to false if undefined
       } catch (err) {
         console.error("Error fetching profile:", err);
